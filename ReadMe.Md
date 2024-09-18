@@ -61,3 +61,24 @@ _______________________________________________
 Creating a Model
 userModel   >>
 movieModel  >> 
+
+
+Public 
+Home
+About
+Service
+Contact >Model
+SignIn  >Model -userModel
+SignUp  >Model -userModel
+
+Private
+AllMovies  >Model movieModel GET
+AddMovie   >Model movieModel POST
+Edit       >Model movieModel PATCH/PUT
+Delete     >Model movieModel DELETE
+Cart       >Model orderModel
+
+DB : .env file
+models:
+
+connection() index.js
