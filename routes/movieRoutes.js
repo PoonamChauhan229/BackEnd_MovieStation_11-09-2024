@@ -19,11 +19,26 @@ router.post('/addmovie',auth,async(req,res)=>{
         }
 })
 
-//  fixation is needed >> auth  >> populate()
+//  fixation is needed >> auth  >> populate() >> if else try and catch
 router.get('/movie',auth,async(req,res)=>{
-    console.log(req.user._id);
-    await req.user.populate("movieRel")
-    res.send({"movieData":req.user.movieRel})
+    try{
+        console.log(req.user._id);
+        if(req.user){
+            let getMovie=await req.user.populate("movieRel")
+            console.log("test",getMovie) // res
+            if(getMovie){
+                res.send({"movieData":req.user.movieRel})
+            }else{
+                res.send({"message":"Movie not added"})
+            }
+        }else{
+            res.send({"message":"User Not Found,Sigin In Failed"})
+        }
+        
+    }catch(e){
+        res.send({"message":"Some Internal Error"})
+    }
+    
 })
 //  fixation is needed
 
