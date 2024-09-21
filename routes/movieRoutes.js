@@ -5,6 +5,7 @@ const router=express.Router()
 
 router.post('/addmovie',auth,async(req,res)=>{
     try{
+        console.log(req.headers)
         const movieData = new Movie({
             ...req.body, //making the copy of req.body
             owner:req.user._id // this one I need to update
@@ -12,14 +13,17 @@ router.post('/addmovie',auth,async(req,res)=>{
         if(!movieData){res.status(401).send({message:"Movie cannot be added"})}
         await movieData.save()
         res.status(200).send({movieData:movieData,message:"Movie has been added successfully"})
-         }catch(e){
-        res.status(500).send({message:"Some internal Error"})
-    }
+         }
+        catch(e){
+            res.status(500).send({message:"Some internal Error"})
+        }
 })
+
 //  fixation is needed >> auth  >> populate()
-router.get('/movie',async(req,res)=>{
-    const getAllMovie = await Movie.find({})
-    res.send(getAllMovie)
+router.get('/movie',auth,async(req,res)=>{
+    console.log(req.user._id);
+    await req.user.populate("movieRel")
+    res.send({"movieData":req.user.movieRel})
 })
 //  fixation is needed
 

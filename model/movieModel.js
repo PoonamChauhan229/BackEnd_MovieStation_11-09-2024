@@ -11,7 +11,12 @@ const movieSchema = new mongoose.Schema({
     likeNum:{type:String,required:true},
     disLikeNum:{type:String,required:true},
     genres:{type:String,required:true},
-    category:{type:String,required:true}
+    category:{type:String,required:true},
+    owner:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"User", 
+        required:true //you need the user id,
+    }
 })
 
 const Movie = mongoose.model("Movie",movieSchema)
