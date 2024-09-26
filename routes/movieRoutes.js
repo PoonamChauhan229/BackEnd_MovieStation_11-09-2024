@@ -19,7 +19,7 @@ router.post('/addmovie',auth,async(req,res)=>{
         }
 })
 
-//  fixation is needed >> auth  >> populate() >> if else try and catch
+
 router.get('/movie',auth,async(req,res)=>{
     try{
         console.log(req.user._id);
@@ -40,7 +40,32 @@ router.get('/movie',auth,async(req,res)=>{
     }
     
 })
-//  fixation is needed
+
+// New Route Which you the movie by id using auth /editmovie/:id
+
+router.get('/movie/:id',auth,async(req,res)=>{
+    try{
+        if(req.user){         
+            const getMovie= await req.user.populate("movieRel") // using the virtual feild
+            if(getMovie){
+                const allMovies=req.user.movieRel
+                let movieById=allMovies.filter((element,index)=>{
+                    return element._id==req.params.id
+                })
+                if(movieById.length!=0){
+                    res.send(movieById)
+                }
+                else{
+                    res.send({"message":"Movie Not Found, Enter the correct Id"})
+                }                 
+            }
+        }else{
+            res.send("User Authentication Failed")
+        }
+        }catch(e){
+            res.send({"message":"Some Internal Error"})
+        }
+})
 
 router.put('/updatemovie/:id',auth,async(req,res)=>{
     const updateMovie = await Movie.findOneAndUpdate({_id:req.params.id,owner:req.user._id},req.body,{new:true, runValidators:true})
