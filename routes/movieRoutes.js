@@ -21,6 +21,7 @@ router.post('/addmovie',auth,async(req,res)=>{
 
 
 router.get('/movie',auth,async(req,res)=>{
+    
     try{
         console.log(req.user._id);
         if(req.user){
@@ -83,6 +84,7 @@ router.put('/updatemovie/:id',auth,async(req,res)=>{
 router.delete('/deletemovie/:id',auth,async(req,res)=>{
     try{
         console.log("Delete Movie by ID",req.params.id)
+        
         const deleteMovie = await Movie.findOneAndDelete({
             _id:req.params.id,owner:req.user._id
         })

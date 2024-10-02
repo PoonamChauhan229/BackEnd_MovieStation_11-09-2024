@@ -5,6 +5,7 @@ const connection=require('./db/connection')
 const movieRouter=require('./routes/movieRoutes')
 const userRouter=require('./routes/userRoutes')
 const enquiryRoutes = require('./routes/enquiryRoutes')
+const orderRoutes = require('./routes/orderRoute')
 const cors=require('cors')
 
 
@@ -20,6 +21,7 @@ app.get('/',(req,res)=>{
 app.use(movieRouter)
 app.use(userRouter)
 app.use(enquiryRoutes)
+app.use(orderRoutes)
 //server Start:
 const PORT=8000
 app.listen(PORT,()=>{

@@ -37,7 +37,7 @@ router.post('/signup',async(req,res)=>{
 // Signin
 router.post('/signin',async(req,res)=>{
   // res.send(req.body)
-  try{
+  // try{
      //checking by user with email
       let user = await User.findOne({          
           email:req.body.email
@@ -61,8 +61,8 @@ router.post('/signin',async(req,res)=>{
       }
       // if all conditions failed it will come to this
       res.status(401).send({message:"Your login credentials are incorrect, kindly check and re-enter!"})
-  }catch(e){
-      res.status(500).send({message:"Some Internal Error"})
-  }
+  // }catch(e){
+  //     res.status(500).send({message:"Some Internal Error"})
+  // }
   })
 module.exports=router
