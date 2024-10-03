@@ -30,6 +30,16 @@ userSchema.virtual('enquiryRel',{
     localField:"_id",
     foreignField:"owner"
 })
+userSchema.virtual('orderRel',{
+    ref:"Order",
+    localField:"_id",
+    foreignField:"owner"
+})
+userSchema.virtual('cartRel',{
+    ref:"Cart",
+    localField:"_id",
+    foreignField:"owner"
+})
 
 const User = mongoose.model("User",userSchema)
 

@@ -41,18 +41,5 @@ router.get('/order',auth,async(req,res)=>{
 
 //RemoveOrder
 // Delete all >> clear cart 
-router.delete('/deletecart',auth,async(req,res)=>{
-    try{      
-        const cartMovie = await Order.deleteMany({
-            owner:req.user._id
-        })
-        if(!cartMovie){
-            res.send({message:"CART Not Found"})
-        }
-        res.send({message:"Cart has been deleted successfully",cartMovie})
-        }catch(e){
-            res.send({message:"Some Internal Error"})
-        }
-})
 
 module.exports=router
