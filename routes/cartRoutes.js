@@ -41,10 +41,10 @@ router.get('/cart',auth,async(req,res)=>{
 
 //RemoveCart
 //Delete all > Clear Cart
-router.delete('/deletecart',auth,async(req,res)=>{
+router.delete('/clearcart',auth,async(req,res)=>{
 try{
     const cartMovie = await Cart.deleteMany({
-        owner:req.user>_id
+        owner:req.user._id
     })
     if(!cartMovie){
         res.send({message:"Cart Not Found"})
